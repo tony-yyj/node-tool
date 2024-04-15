@@ -2,6 +2,7 @@ import * as ed from '@noble/ed25519';
 import crypto from 'crypto';
 import {decodeBase58, ethers} from "ethers";
 import axios from "axios";
+import { log } from 'console';
 
 const apiUrl = 'https://qa-api-evm.orderly.org';
 
@@ -75,6 +76,7 @@ async function init() {
         // accountId: '0x71f47c316a4fb4fb90dd368740bfb8db84f4ad22d909123bb3bbf1587f026da8',
         // privateKey: '3QqmLhuYVgsoRGDbQRDTQ3Zrn2aPQkFetzXn7yNUevv1'
 
+        // wendy account config
         accountId: '0xd2590575a84c03e794e055dd70a3e8d5e0933342b1dbeb05c3d310f78a91fde7',
         privateKey: '7o5HPSj78tnbRNxtRorTn5Vued8EzTKraUQZJYJeWYJr',
 
@@ -82,6 +84,7 @@ async function init() {
         // privateKey: 'BHFBjyBu4fnc7vHaoWMwdfHcQmeTMv18jCjNjuoj8hsV',
     };
 
+    // limit order
     const data = {
         "symbol": "PERP_ETH_USDC",
         "order_type": "LIMIT",
@@ -93,10 +96,18 @@ async function init() {
         "order_tag": 'tony',
     };
 
+    // stop order
+    const stopOrder = {"symbol":"PERP_ETH_USDC","side":"BUY","reduce_only":false,"visible_quantity":0,"trigger_price":"3100.0","algo_type":"STOP","type":"LIMIT","quantity":"0.4223","price":"3050","trigger_price_type":"MARK_PRICE","order_price":"3050.0"};
+
     const apiUrl = 'https://qa-api-evm.orderly.org';
 
-    const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, data);
+    try{
+    // const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, data);
+    const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey,stopOrder);
     console.log('res', res.data);
+    } catch(e) {
+        console.log('error', e.message);
+    }
 }
 
 init().then();
