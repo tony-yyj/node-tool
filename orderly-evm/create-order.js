@@ -1,6 +1,6 @@
 import * as ed from '@noble/ed25519';
 import crypto from 'crypto';
-import {decodeBase58, ethers} from "ethers";
+import { decodeBase58, ethers } from "ethers";
 import axios from "axios";
 import { log } from 'console';
 
@@ -97,15 +97,18 @@ async function init() {
     };
 
     // stop order
-    const stopOrder = {"symbol":"PERP_ETH_USDC","side":"BUY","reduce_only":false,"visible_quantity":0,"trigger_price":"3100.0","algo_type":"STOP","type":"LIMIT","quantity":"0.4223","price":"3050","trigger_price_type":"MARK_PRICE","order_price":"3050.0"};
+    const stopOrder = { 
+        "symbol": "PERP_ETH_USDC", "side": "BUY", "reduce_only": false, "visible_quantity": 0, "trigger_price": "3100.0", "algo_type": "STOP", "type": "LIMIT", "quantity": "0.4223", "price": "3050", "trigger_price_type": "MARK_PRICE", "order_price": "3050.0",
+        order_tag: 'tony',
+     };
 
     const apiUrl = 'https://qa-api-evm.orderly.org';
 
-    try{
-    // const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, data);
-    const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey,stopOrder);
-    console.log('res', res.data);
-    } catch(e) {
+    try {
+        // const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, data);
+        const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, stopOrder);
+        console.log('res', res.data);
+    } catch (e) {
         console.log('error', e.message);
     }
 }
