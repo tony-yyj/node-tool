@@ -9,11 +9,10 @@ const apiUrl = 'https://qa-api-evm.orderly.org';
 // global.crypto = crypto;
 
 // const apiUrl = 'https://testnet-api-evm.orderly.org';
-const sendRequest = async (apiUrl, accountId, privateKey, data) => {
+const sendRequest = async (url, accountId, privateKey, data) => {
     const method = 'POST';
 
 
-    const path = `${apiUrl}/v1/order`;
 
     const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -21,10 +20,10 @@ const sendRequest = async (apiUrl, accountId, privateKey, data) => {
         'Content-Type': 'application/json;charset=utf-8'
     };
 
-    const authHeader = await handleSignature(path, method, method === 'delete' ? null : data, accountId, privateKey);
+    const authHeader = await handleSignature(url, method, method === 'delete' ? null : data, accountId, privateKey);
     Object.assign(headers, authHeader);
     console.log(headers);
-    return axios.post(path, data, {
+    return axios.post(url, data, {
         headers,
     });
 
@@ -102,11 +101,15 @@ async function init() {
         order_tag: 'tony',
      };
 
+
     const apiUrl = 'https://qa-api-evm.orderly.org';
 
+    const order = `${apiUrl}/v1/order`;
+    const algoOrder = `${apiUrl}/v1/algo/order`;
+
     try {
-        // const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, data);
-        const res = await sendRequest(apiUrl, auth.accountId, auth.privateKey, stopOrder);
+        const res = await sendRequest(order, auth.accountId, auth.privateKey, data);
+        // const res = await sendRequest(algoOrder, auth.accountId, auth.privateKey, stopOrder);
         console.log('res', res.data);
     } catch (e) {
         console.log('error', e.message);
