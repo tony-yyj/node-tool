@@ -1,0 +1,21 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@noble/ed25519": "2.1.0",
+    "axios": "1.6.8",
+    "bignumber.js": "9.1.2",
+    "crypto": "1.0.1",
+    "ethers": "6.11.1",
+    "moment": "2.30.1",
+    "node-html-parser": "^6.1.11"
+  }
+}
