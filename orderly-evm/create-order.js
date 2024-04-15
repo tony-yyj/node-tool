@@ -96,20 +96,30 @@ async function init() {
     };
 
     // stop order
-    const stopOrder = { 
-        "symbol": "PERP_ETH_USDC", "side": "BUY", "reduce_only": false, "visible_quantity": 0, "trigger_price": "3100.0", "algo_type": "STOP", "type": "LIMIT", "quantity": "0.4223", "price": "3050", "trigger_price_type": "MARK_PRICE", "order_price": "3050.0",
+    const stopOrder = {
+        "symbol": "PERP_ETH_USDC",
+        "side": "BUY",
+        "reduce_only": false,
+        "visible_quantity": 0,
+        "trigger_price": "3100.0",
+        "algo_type": "STOP",
+        "type": "LIMIT",
+        "quantity": "0.4223",
+        "price": "3050",
+        "trigger_price_type": "MARK_PRICE",
+        "order_price": "3050.0",
         order_tag: 'tony',
-     };
+    };
 
 
     const apiUrl = 'https://qa-api-evm.orderly.org';
 
-    const order = `${apiUrl}/v1/order`;
-    const algoOrder = `${apiUrl}/v1/algo/order`;
+    const orderUrl = `${apiUrl}/v1/order`;
+    const algoOrderUrl = `${apiUrl}/v1/algo/order`;
 
     try {
-        const res = await sendRequest(order, auth.accountId, auth.privateKey, data);
-        // const res = await sendRequest(algoOrder, auth.accountId, auth.privateKey, stopOrder);
+        // const res = await sendRequest(orderUrl, auth.accountId, auth.privateKey, data);
+        const res = await sendRequest(algoOrderUrl, auth.accountId, auth.privateKey, stopOrder);
         console.log('res', res.data);
     } catch (e) {
         console.log('error', e.message);
